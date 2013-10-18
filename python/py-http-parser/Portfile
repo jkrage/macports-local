@@ -20,7 +20,7 @@ long_description    HTTP request/response parser for Python compatible \
 python.versions     26 27 31 32 33
 
 homepage            http://github.com/benoitc/http-parser
-master_sites        http://pypi.python.org/packages/source/h/http-parser
+master_sites        https://pypi.python.org/packages/source/h/http-parser
 distname            http-parser-${version}
 checksums           md5 6cc089365e3ae758e5f5cda0f2f8f788 \
                     sha1 537a2fdeb2d03cf3a2dfa51f0c24e03acda27c7a \
