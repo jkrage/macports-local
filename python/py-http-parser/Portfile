@@ -19,6 +19,8 @@ long_description    HTTP request/response parser for Python compatible \
 
 python.versions     26 27 31 32 33
 
+depends_build       port:py-setuptools
+
 homepage            http://github.com/benoitc/http-parser
 master_sites        https://pypi.python.org/packages/source/h/http-parser
 distname            http-parser-${version}
