@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-restkit
+version             4.2.1
+
+categories          python www
+license             MIT
+platforms           darwin
+maintainers         nomaintainer
+description         HTTP resource kit for Python
+long_description    Restkit is an HTTP resource kit for Python. It allows \
+                    you to easily access to HTTP resource and build \
+                    objects around it. It's the base of couchdbkit a \
+                    Python CouchDB framework.
+
+homepage            http://benoitc.github.com/restkit/
+master_sites        http://pypi.python.org/packages/source/r/restkit
+distname            restkit-${version}
+checksums           md5 5cf9082ec760e226c8b0ebc0d9a2ab00 \
+                    sha1 2fffe45b3c9615656d0e15ecfd0c8e541e3bae23 \
+                    rmd160 5d881b338b1cf339aa6dee343df392bbe4267cb3
+
+# Python >= 2.6 required
+# Python 3.x is not yet officially supported
+python.versions     26 27
+
+
+if {$subport != $name} {
+    depends_build       port:py${python.version}-distribute
+    depends_lib-append  port:py${python.version}-http-parser \
+                        port:py${python.version}-socketpool
+}
+
+livecheck.type      regex
+livecheck.url       http://pypi.python.org/pypi/restkit
+livecheck.regex     {restkit ([0-9]+\.[0-9]+(?:\.[0-9]+)?)}
