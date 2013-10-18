@@ -1,0 +1,40 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id: Portfile 93539 2012-05-26 00:48:22Z jmr@macports.org $
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-couchdbkit
+version             0.6.4
+
+categories          python db
+license             MIT
+platforms           darwin
+maintainers         blair
+description         Python library for working with CouchDB
+long_description    Couchdbkit provides you a full featured and easy client \
+                    to access and manage CouchDB.  It allow you to manage a \
+                    CouchDB server, databases, doc managements and view \
+                    access.  All objects mostly reflect python objects for \
+                    convenience.  Server and databases objects could be used \
+                    for example as easy as using a dict.
+
+# Python >= 2.6 required
+# Python 3.x supported "soon"
+python.versions     26 27
+
+homepage            http://couchdbkit.org/
+master_sites        http://pypi.python.org/packages/source/c/couchdbkit
+distname            couchdbkit-${version}
+checksums           md5 9908a613aad2a1bc0fe5c3860449f54a \
+                    sha1 762f7e9d34dcfdca9a66e21865a6db5c38a25f97 \
+                    rmd160 8247332a08d3c3e2b3159876ea21c2b01c66a936
+
+if {$subport != $name} {
+    depends_build       port:py${python.version}-distribute
+    depends_lib-append  port:py${python.version}-restkit
+}
+
+livecheck.type      regex
+livecheck.url       http://pypi.python.org/pypi/couchdbkit
+livecheck.regex     {couchdbkit ([0-9]+\.[0-9]+(?:\.[0-9]+)?)}
