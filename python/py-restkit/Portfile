@@ -17,7 +17,7 @@ long_description    Restkit is an HTTP resource kit for Python. It allows \
                     objects around it. It's the base of couchdbkit a \
                     Python CouchDB framework.
 
-homepage            http://benoitc.github.com/restkit/
+homepage            http://benoitc.github.io/restkit/
 master_sites        http://pypi.python.org/packages/source/r/restkit
 distname            restkit-${version}
 checksums           md5 5cf9082ec760e226c8b0ebc0d9a2ab00 \
