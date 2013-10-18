@@ -1,0 +1,24 @@
+PortSystem          1.0
+
+name                pidgin-sipe
+version             1.15.1
+
+categories          net chat
+license             GPL-2
+platforms           darwin
+maintainers         openmaintainer
+description         SIPE plugin for Pidgin
+long_description    A third-party Pidgin plugin for MS Office \
+                    Communications Server. SIP with proprietary \
+                    MS extensions. Supports Microsoft Office \
+                    Communications Server (OCS 2007 and newer) \
+                    and Microsoft Live Communications Server \
+                    (LCS 2003/2005).
+
+homepage            http://sourceforge.net/projects/sipe/
+master_sites        sourceforge:sipe
+checksums	    md5 43a6bbdcff7d36c777f241f293693606 \
+		    sha1 e5a59802f4686ba4f2f339934cfc16c587aec3df \
+		    rmd160 910f4ffbf51e41724408b516c46691a1f0e033d9
+
+depends_lib         port:pidgin
