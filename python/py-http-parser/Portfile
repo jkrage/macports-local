@@ -1,0 +1,31 @@
+# -*- coding: utf-8; mode: tcl; tab-width: 4; indent-tabs-mode: nil; c-basic-offset: 4 -*- vim:fenc=utf-8:ft=tcl:et:sw=4:ts=4:sts=4
+# $Id$
+
+PortSystem          1.0
+PortGroup           python 1.0
+
+name                py-http-parser
+version             0.8.1
+
+categories          python www
+license             MIT
+platforms           darwin
+maintainers         nomaintainer
+description         http request/response parser
+long_description    HTTP request/response parser for Python compatible \
+                    with Python 2.x (>=2.6), Python 3 and Pypy. If \
+                    possible a C parser based on http-parser from Ryan \
+                    Dahl will be used.
+
+python.versions     26 27 31 32 33
+
+homepage            http://github.com/benoitc/http-parser
+master_sites        http://pypi.python.org/packages/source/h/http-parser
+distname            http-parser-${version}
+checksums           md5 6cc089365e3ae758e5f5cda0f2f8f788 \
+                    sha1 537a2fdeb2d03cf3a2dfa51f0c24e03acda27c7a \
+                    rmd160 75f003ed80ae48ac3168495f2ca97b5a5d629b98
+
+livecheck.type      regex
+livecheck.url       http://pypi.python.org/pypi/http-parser
+livecheck.regex     {http-parser ([0-9]+\.[0-9]+(?:\.[0-9]+)?)}
