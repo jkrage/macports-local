@@ -5,7 +5,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-http-parser
-version             0.8.1
+version             0.8.3
 
 categories          python www
 license             MIT
@@ -22,9 +22,9 @@ python.versions     26 27 31 32 33
 homepage            http://github.com/benoitc/http-parser
 master_sites        https://pypi.python.org/packages/source/h/http-parser
 distname            http-parser-${version}
-checksums           md5 6cc089365e3ae758e5f5cda0f2f8f788 \
-                    sha1 537a2fdeb2d03cf3a2dfa51f0c24e03acda27c7a \
-                    rmd160 75f003ed80ae48ac3168495f2ca97b5a5d629b98
+checksums           md5 751967e2785c829dffebdc9a511e0eec \
+                    sha1 de2509e6b62d6beb191e0953d3b098ffac27fedd \
+                    rmd160 5953b6a238917e14b1bf6c1e4f995fbac03463b5
 
 livecheck.type      regex
 livecheck.url       http://pypi.python.org/pypi/http-parser
