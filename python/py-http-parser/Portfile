@@ -19,14 +19,16 @@ long_description    HTTP request/response parser for Python compatible \
 
 python.versions     26 27 31 32 33
 
-depends_build       port:py-setuptools
-
 homepage            http://github.com/benoitc/http-parser
 master_sites        https://pypi.python.org/packages/source/h/http-parser
 distname            http-parser-${version}
 checksums           md5 751967e2785c829dffebdc9a511e0eec \
                     sha1 de2509e6b62d6beb191e0953d3b098ffac27fedd \
                     rmd160 5953b6a238917e14b1bf6c1e4f995fbac03463b5
+
+if {$subport != $name} {
+    depends_build       port:py${python.version}-setuptools
+}
 
 livecheck.type      regex
 livecheck.url       http://pypi.python.org/pypi/http-parser
