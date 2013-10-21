@@ -19,16 +19,16 @@ long_description    Couchdbkit provides you a full featured and easy client \
                     convenience.  Server and databases objects could be used \
                     for example as easy as using a dict.
 
-# Python >= 2.6 required
-# Python 3.x supported "soon"
-python.versions     26 27
-
 homepage            http://couchdbkit.org/
 master_sites        http://pypi.python.org/packages/source/c/couchdbkit
 distname            couchdbkit-${version}
 checksums           md5 9908a613aad2a1bc0fe5c3860449f54a \
                     sha1 762f7e9d34dcfdca9a66e21865a6db5c38a25f97 \
                     rmd160 8247332a08d3c3e2b3159876ea21c2b01c66a936
+
+# Python >= 2.6 required
+# Python 3.x supported "soon"
+python.versions     26 27
 
 if {$subport != $name} {
     depends_build       port:py${python.version}-distribute
