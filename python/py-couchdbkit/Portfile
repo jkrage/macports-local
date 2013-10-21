@@ -5,7 +5,7 @@ PortSystem          1.0
 PortGroup           python 1.0
 
 name                py-couchdbkit
-version             0.6.4
+version             0.6.5
 
 categories          python db
 license             MIT
@@ -22,9 +22,9 @@ long_description    Couchdbkit provides you a full featured and easy client \
 homepage            http://couchdbkit.org/
 master_sites        http://pypi.python.org/packages/source/c/couchdbkit
 distname            couchdbkit-${version}
-checksums           md5 9908a613aad2a1bc0fe5c3860449f54a \
-                    sha1 762f7e9d34dcfdca9a66e21865a6db5c38a25f97 \
-                    rmd160 8247332a08d3c3e2b3159876ea21c2b01c66a936
+checksums           md5 d5f6382665697b0f126f68a211c1a5a2 \
+                    sha1 64feff3bc6e47ff04d7efceeaad027036215d2c2 \
+                    rmd160 58f1fe17b32c3b307851b9f2701a987aab8d9849
 
 # Python >= 2.6 required
 # Python 3.x supported "soon"
