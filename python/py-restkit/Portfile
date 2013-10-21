@@ -28,7 +28,6 @@ checksums           md5 5cf9082ec760e226c8b0ebc0d9a2ab00 \
 # Python 3.x is not yet officially supported
 python.versions     26 27
 
-
 if {$subport != $name} {
     depends_build       port:py${python.version}-setuptools
     depends_lib-append  port:py${python.version}-http-parser \
