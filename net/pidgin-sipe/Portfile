@@ -1,7 +1,7 @@
 PortSystem          1.0
 
 name                pidgin-sipe
-version             1.15.1
+version             1.17.0
 
 categories          net chat
 license             GPL-2
@@ -17,8 +17,8 @@ long_description    A third-party Pidgin plugin for MS Office \
 
 homepage            http://sourceforge.net/projects/sipe/
 master_sites        sourceforge:sipe
-checksums	    md5 43a6bbdcff7d36c777f241f293693606 \
-		    sha1 e5a59802f4686ba4f2f339934cfc16c587aec3df \
-		    rmd160 910f4ffbf51e41724408b516c46691a1f0e033d9
+checksums	    md5 7d9c22ea384018ab691b637731fcdf2f \
+		    sha1 675ac9ffd100aeedbe8e3394f89657e6eb38e422 \
+		    rmd160 245081fcc1d174458677bc6ffc9e331baceeaeb2
 
 depends_lib         port:pidgin
