@@ -30,7 +30,7 @@ python.versions     26 27
 
 
 if {$subport != $name} {
-    depends_build       port:py${python.version}-distribute
+    depends_build       port:py${python.version}-setuptools
     depends_lib-append  port:py${python.version}-http-parser \
                         port:py${python.version}-socketpool
 }
