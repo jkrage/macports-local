@@ -6,7 +6,10 @@ PortGroup muniversal 1.0
 
 name            openldap
 version         2.4.40
-revision        1
+# Please set revision_libs and revision_server to 0 if you bump version.
+# Subports below inherit these values for use in revision variable.
+set revision_libs   2
+set revision_server 2
 categories      databases
 maintainers     landonf
 license         openldap
@@ -14,98 +17,116 @@ description     OpenLDAP Software
 long_description    OpenLDAP Software is an open source implementation \
                     of the Lightweight Directory Access Protocol.
 
-platforms       darwin
 homepage        http://www.openldap.org/
-master_sites    ftp://ftp.OpenLDAP.org/pub/OpenLDAP/openldap-release/ \
-                http://www.openldap.org/software/download/OpenLDAP/openldap-release/ \
-                ftp://ftp.nl.uu.net/pub/unix/db/openldap/openldap-release/
-extract.suffix    .tgz
 
-checksums       rmd160  38a914d785040730e9e595fe007ea4a0d0635344 \
-                sha256  d12611a5c25b6499293c2bb7b435dc2b174db73e83f5a8cb7e34f2ce5fa6dadb
+if {$subport eq $name} {
+    revision        ${revision_libs}
+    platforms       darwin
 
-depends_lib     path:bin/perl:perl5 \
-                port:tcp_wrappers \
-                port:cyrus-sasl2 \
-                port:openssl \
-                port:db46 \
-                port:icu
+    master_sites    ftp://ftp.OpenLDAP.org/pub/OpenLDAP/openldap-release/ \
+                    http://www.openldap.org/software/download/OpenLDAP/openldap-release/ \
+                    ftp://ftp.nl.uu.net/pub/unix/db/openldap/openldap-release/
+    extract.suffix    .tgz
 
-patchfiles      patch-ltmain
+    checksums       rmd160  38a914d785040730e9e595fe007ea4a0d0635344 \
+                    sha256  d12611a5c25b6499293c2bb7b435dc2b174db73e83f5a8cb7e34f2ce5fa6dadb
 
-configure.env-append        LANG=C
-configure.cppflags-append   -I${prefix}/include/db46 -I${prefix}/include/openssl -DBIND_8_COMPAT
-platform darwin {
-    configure.cppflags-append -DMDB_FDATASYNC=fsync
-    if {${os.major} <= 9} {
-        configure.cppflags-append -DMDB_DSYNC=O_SYNC
-    }
-}
-configure.ldflags-append    -L${prefix}/lib/db46
+    depends_lib     port:tcp_wrappers \
+                    port:cyrus-sasl2 \
+                    port:openssl \
+                    port:db46 \
+                    port:icu
 
-configure.args  --mandir=${prefix}/share/man \
-                --localstatedir=${prefix}/var \
-                --with-cyrus-sasl \
-                --with-tls \
-                --enable-crypt \
-                --enable-wrappers \
-                --enable-syncprov \
-                --enable-ipv6
+    patchfiles      patch-ltmain
 
-startupitem.create  yes
-startupitem.name    slapd
-startupitem.init    "PID=${prefix}/var/run/slapd.pid"
-startupitem.start   "${prefix}/libexec/slapd -u ldap -f ${prefix}/etc/openldap/slapd.conf"
-startupitem.stop    "\[ -r \${PID} \] && kill \$(cat \${PID})"
-
-variant aci description {Enable per-object ACIs (experimental)} {
-        configure.args-append --enable-aci
-}
-
-variant overlays description {Enable all available overlays} {
-        configure.args-append --enable-overlays
-}
-
-platform darwin {
-    if {${os.major} < 10} {
-        # https://trac.macports.org/ticket/46236
-        configure.args-append --disable-mdb
-    }
-}
-
-pre-build {
-    set dirs {}
-    if {[variant_isset universal]} {
-        foreach arch ${universal_archs_to_use} {
-            lappend dirs ${worksrcpath}-${arch}
+    configure.env-append        LANG=C
+    configure.cppflags-append   -I${prefix}/include/db46 -I${prefix}/include/openssl -DBIND_8_COMPAT
+    platform darwin {
+        configure.cppflags-append -DMDB_FDATASYNC=fsync
+        if {${os.major} <= 9} {
+            configure.cppflags-append -DMDB_DSYNC=O_SYNC
         }
-    } else {
-        lappend dirs ${worksrcpath}
     }
-    foreach dir ${dirs} {
-        system "cd ${dir} && make depend"
+    configure.ldflags-append    -L${prefix}/lib/db46
+
+    configure.args  --mandir=${prefix}/share/man \
+                    --localstatedir=${prefix}/var \
+                    --with-cyrus-sasl \
+                    --with-tls \
+                    --enable-crypt \
+                    --enable-wrappers \
+                    --enable-syncprov \
+                    --enable-ipv6
+
+
+    variant aci description {Enable per-object ACIs (experimental)} {
+            configure.args-append --enable-aci
     }
+
+    variant overlays description {Enable all available overlays} {
+            configure.args-append --enable-overlays
+    }
+
+    platform darwin {
+        if {${os.major} < 10} {
+            # https://trac.macports.org/ticket/46236
+            configure.args-append --disable-mdb
+        }
+    }
+
+    pre-build {
+        set dirs {}
+        if {[variant_isset universal]} {
+            foreach arch ${universal_archs_to_use} {
+                lappend dirs ${worksrcpath}-${arch}
+            }
+        } else {
+            lappend dirs ${worksrcpath}
+        }
+        foreach dir ${dirs} {
+            system "cd ${dir} && make depend"
+        }
+    }
+
+    post-destroot {
+        # Delete the duplicate .conf files (leaves .conf.default) so upgrades won't overwrite .conf files.
+        file delete -force ${destroot}${prefix}/etc/openldap/slapd.conf
+        file delete -force ${destroot}${prefix}/etc/openldap/ldap.conf
+    }
+
+    livecheck.type  regex
+    livecheck.url   http://www.openldap.org/software/download/OpenLDAP/openldap-release/
+    livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
 }
 
-add_users ldap group=ldap
+subport ${name}-server {
+    revision            ${revision_server}
+    depends_run         port:${name}
 
-destroot.keepdirs "${destroot}${prefix}/var/run/openldap-data"
-post-destroot {
-    if {[geteuid] == 0} {
-        xinstall -d -g ldap -m 700 -o ldap \
-            "${destroot}${prefix}/var/run/openldap-data"
-    } else {
-        xinstall -d -m 700 \
-            "${destroot}${prefix}/var/run/openldap-data"
+    startupitem.create  yes
+    startupitem.name    slapd
+    startupitem.init    "PID=${prefix}/var/run/slapd.pid"
+    startupitem.start   "${prefix}/libexec/slapd -u ldap -f ${prefix}/etc/openldap/slapd.conf"
+    startupitem.stop    "\[ -r \${PID} \] && kill \$(cat \${PID})"
+
+    add_users ldap group=ldap
+
+    use_configure   no
+
+    build {}
+
+    post-destroot {
+        if {[geteuid] == 0} {
+            xinstall -d -g ldap -m 700 -o ldap \
+                "${destroot}${prefix}/var/run/openldap-data"
+        } else {
+            xinstall -d -m 700 \
+                "${destroot}${prefix}/var/run/openldap-data"
+        }
+        # Delete the duplicate .conf files (leaves .conf.default) so upgrades won't overwrite .conf files.
+        file delete -force ${destroot}${prefix}/etc/openldap/slapd.conf
+        file delete -force ${destroot}${prefix}/etc/openldap/ldap.conf
     }
-# Delete the duplicate .conf files (leaves .conf.default) so upgrades won't overwrite .conf files.
-    file delete -force ${destroot}${prefix}/etc/openldap/slapd.conf
-    file delete -force ${destroot}${prefix}/etc/openldap/ldap.conf
+
+    livecheck.type  none
 }
-
-test.run        yes
-test.target     check
-
-livecheck.type  regex
-livecheck.url   http://www.openldap.org/software/download/OpenLDAP/openldap-release/
-livecheck.regex "${name}-(\\d+(?:\\.\\d+)*)${extract.suffix}"
