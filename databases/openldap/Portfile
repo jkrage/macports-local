@@ -10,9 +10,9 @@ revision        1
 categories      databases
 maintainers     landonf
 license         openldap
-description     OpenLDAP Software 
+description     OpenLDAP Software
 long_description    OpenLDAP Software is an open source implementation \
-                    of the Lightweight Directory Access Protocol.  
+                    of the Lightweight Directory Access Protocol.
 
 platforms       darwin
 homepage        http://www.openldap.org/
