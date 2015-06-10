@@ -38,7 +38,7 @@ configure.cppflags-append   -I${prefix}/include/db46 -I${prefix}/include/openssl
 platform darwin {
     configure.cppflags-append -DMDB_FDATASYNC=fsync
     if {${os.major} <= 9} {
-        configure.cppflags-append -DMDB_DSYNC=O_SYNC 
+        configure.cppflags-append -DMDB_DSYNC=O_SYNC
     }
 }
 configure.ldflags-append    -L${prefix}/lib/db46
