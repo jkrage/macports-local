@@ -8,10 +8,10 @@ name            openldap
 version         2.4.40
 # Please set revision_libs and revision_server to 0 if you bump version.
 # Subports below inherit these values for use in revision variable.
-set revision_libs   2
-set revision_server 2
+set revision_libs   3
+set revision_server 3
 categories      databases
-maintainers     landonf
+maintainers     nomaintainer
 license         openldap
 description     OpenLDAP Software
 long_description    OpenLDAP Software is an open source implementation \
@@ -26,14 +26,14 @@ if {$subport eq $name} {
     master_sites    ftp://ftp.OpenLDAP.org/pub/OpenLDAP/openldap-release/ \
                     http://www.openldap.org/software/download/OpenLDAP/openldap-release/ \
                     ftp://ftp.nl.uu.net/pub/unix/db/openldap/openldap-release/
-    extract.suffix    .tgz
+    extract.suffix  .tgz
 
     checksums       rmd160  38a914d785040730e9e595fe007ea4a0d0635344 \
                     sha256  d12611a5c25b6499293c2bb7b435dc2b174db73e83f5a8cb7e34f2ce5fa6dadb
 
     depends_lib     port:tcp_wrappers \
                     port:cyrus-sasl2 \
-                    port:openssl \
+                    port:lib/libssl.dylib:openssl \
                     port:db46 \
                     port:icu
 
