@@ -5,11 +5,11 @@ PortSystem 1.0
 PortGroup muniversal 1.0
 
 name            openldap
-version         2.4.40
+version         2.4.44
 # Please set revision_libs and revision_server to 0 if you bump version.
 # Subports below inherit these values for use in revision variable.
-set revision_libs   3
-set revision_server 3
+set revision_libs   0
+set revision_server 0
 categories      databases
 maintainers     nomaintainer
 license         openldap
@@ -28,8 +28,8 @@ if {$subport eq $name} {
                     ftp://ftp.nl.uu.net/pub/unix/db/openldap/openldap-release/
     extract.suffix  .tgz
 
-    checksums       rmd160  38a914d785040730e9e595fe007ea4a0d0635344 \
-                    sha256  d12611a5c25b6499293c2bb7b435dc2b174db73e83f5a8cb7e34f2ce5fa6dadb
+    checksums       rmd160  6ea3139f630e93c6e0af60638672d88d6c535a6a \
+                    sha256  d7de6bf3c67009c95525dde3a0212cc110d0a70b92af2af8e3ee800e81b88400
 
     depends_lib     port:tcp_wrappers \
                     port:cyrus-sasl2 \
